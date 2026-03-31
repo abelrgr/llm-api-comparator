@@ -11,11 +11,12 @@ export default defineConfig({
     compress({
       HTML: {
         'html-minifier-terser': {
-          // collapseWhitespace strips React SSR text nodes ({" "}, etc.)
-          // which causes React hydration error #418 on the client.
+          // Preserve whitespace text nodes React SSR emits ({" "}, etc.)
           collapseWhitespace: false,
-          // trimCustomFragments has the same effect on inline text fragments.
           trimCustomFragments: false,
+          // Preserve React's empty <!-- --> comment markers used for
+          // fragments and conditional renders — stripping them causes #418.
+          removeComments: false,
         },
       },
     }),
