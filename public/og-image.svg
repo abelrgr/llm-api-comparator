@@ -24,7 +24,7 @@
   
   <!-- Subtitle -->
   <text x="600" y="290" font-family="system-ui, -apple-system, sans-serif" font-size="36" text-anchor="middle" fill="#6b7280">
-    Compare AI Model Pricing & Costs
+    Compare AI Model Pricing &amp; Costs
   </text>
   
   <!-- Icons row -->

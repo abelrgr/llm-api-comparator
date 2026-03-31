@@ -1,104 +1,104 @@
-# LLM API Comparator ⚡
+# LLM API Comparator 
 
 > **Make data-driven decisions about which AI model fits your budget.** Compare pricing and features of GPT-4, Claude, Gemini, Llama and more with real-time pricing data.
 
-## 🎯 About
+##  About
 
 LLM API Comparator is a modern, interactive web application that helps developers, data scientists, and teams make informed decisions when selecting Large Language Model (LLM) APIs. It provides comprehensive pricing comparisons, detailed model specifications, and intelligent recommendations across multiple AI providers.
 
 **Live Demo:** https://llm-comparator.abelgalloruiz.me
 
-## ✨ Key Features
+##  Key Features
 
-### 📊 **Interactive Comparison**
+###  **Interactive Comparison**
 - Side-by-side pricing comparison of 50+ LLM models
 - Real-time pricing data from multiple providers
 - Filter and sort by cost, performance, and features
 - Subscription vs. pay-per-use pricing models
 
-### 🧮 **Usage Calculator**
+###  **Usage Calculator**
 - Calculate total API costs based on token usage
 - Break down input and output token costs
 - Support for batch processing scenarios
 - Visual cost projections
 
-### 🤖 **Smart Recommender**
+###  **Smart Recommender**
 - AI-powered model recommendations
 - Filter by use case (chat, text generation, embeddings, etc.)
 - Budget-aware suggestions
 - Feature-based matching
 
-### 🌍 **Multi-Language Support**
+###  **Multi-Language Support**
 - English, Spanish, Portuguese, and French
 - Automatic language detection
 - Persistent language preference
 - Translated model descriptions
 
-### 🎨 **Dark/Light Theme**
+###  **Dark/Light Theme**
 - System preference detection
 - Manual theme toggle
 - Smooth transitions
 - Persistent theme choice
 
-### 📱 **Responsive Design**
+###  **Responsive Design**
 - Mobile-first approach
 - Desktop, tablet, and mobile optimized
 - Touch-friendly interface
 - Progressive Web App ready
 
-### ❓ **Comprehensive FAQ**
+###  **Comprehensive FAQ**
 - Cost breakdown diagrams
 - API usage explanation
 - Billing model comparisons
 - Common questions answered
 
-## 🏗️ Project Structure
+##  Project Structure
 
 ```
 llm-api-comparator/
-├── src/
-│   ├── components/
-│   │   ├── layout/              # Header, Footer components
-│   │   ├── charts/              # Cost visualization charts
-│   │   ├── comparison/          # Comparison table & panels
-│   │   ├── calculator/          # Usage calculator
-│   │   ├── models/              # Model cards & grid
-│   │   ├── recommender/         # AI recommender engine
-│   │   ├── faq/                 # Frequently asked questions
-│   │   ├── filters/             # Filter controls
-│   │   └── ui/                  # Reusable UI components
-│   ├── data/
-│   │   └── models.ts            # Model data source
-│   ├── hooks/
-│   │   ├── useTheme.ts          # Theme management
-│   │   └── useI18n.ts           # Internationalization
-│   ├── i18n/
-│   │   └── locales/             # Translation files (en, es, pt, fr)
-│   ├── lib/
-│   │   ├── calculator.ts        # Cost calculation logic
-│   │   ├── recommender.ts       # Recommendation engine
-│   │   ├── modelsApi.ts         # Backend API client
-│   │   ├── codeHighlight.ts     # Syntax highlighting
-│   │   └── utils.ts             # Utility functions
-│   ├── pages/
-│   │   └── index.astro          # Main page
-│   ├── store/
-│   │   ├── appStore.tsx         # Application state
-│   │   └── context.ts           # React context
-│   ├── styles/
-│   │   └── global.css           # Global styles
-│   └── types/
-│       └── index.ts             # TypeScript types
-├── public/                       # Static assets
-├── Dockerfile                    # Docker configuration
-├── astro.config.mjs             # Astro configuration
-├── package.json
-├── tsconfig.json
-└── README.md
+ src/
+    components/
+       layout/              # Header, Footer components
+       charts/              # Cost visualization charts
+       comparison/          # Comparison table & panels
+       calculator/          # Usage calculator
+       models/              # Model cards & grid
+       recommender/         # AI recommender engine
+       faq/                 # Frequently asked questions
+       filters/             # Filter controls
+       ui/                  # Reusable UI components
+    data/
+       models.ts            # Model data source
+    hooks/
+       useTheme.ts          # Theme management
+       useI18n.ts           # Internationalization
+    i18n/
+       locales/             # Translation files (en, es, pt, fr)
+    lib/
+       calculator.ts        # Cost calculation logic
+       recommender.ts       # Recommendation engine
+       modelsApi.ts         # Backend API client
+       codeHighlight.ts     # Syntax highlighting
+       utils.ts             # Utility functions
+    pages/
+       index.astro          # Main page
+    store/
+       appStore.tsx         # Application state
+       context.ts           # React context
+    styles/
+       global.css           # Global styles
+    types/
+        index.ts             # TypeScript types
+ public/                       # Static assets
+ Dockerfile                    # Docker configuration
+ astro.config.mjs             # Astro configuration
+ package.json
+ tsconfig.json
+ README.md
 
 ```
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Framework:** [Astro 6](https://astro.build) - Ultra-fast static site builder
 - **UI Library:** [React 19](https://react.dev) - Interactive components
@@ -109,7 +109,7 @@ llm-api-comparator/
 - **Reverse Proxy:** [Nginx](https://nginx.org) - Web server
 - **Type Safety:** [TypeScript](https://www.typescriptlang.org) - Static typing
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Node.js >= 22.12.0
@@ -145,7 +145,7 @@ docker build -t llm-comparator .
 docker run -p 80:80 llm-comparator
 ```
 
-## 📋 Available Commands
+##  Available Commands
 
 | Command | Action |
 |---------|--------|
@@ -155,7 +155,7 @@ docker run -p 80:80 llm-comparator
 | `bun run astro check` | Check for TypeScript errors |
 | `bun run astro add` | Add new integrations |
 
-## 🌐 Environment Variables
+##  Environment Variables
 
 Create a `.env` file in the root directory:
 
@@ -167,7 +167,7 @@ PUBLIC_BACKEND_URL=https://swissknife.abelgalloruiz.me/llm-models
 # PUBLIC_BACKEND_URL=http://localhost:3000/llm-models
 ```
 
-## 🐳 Docker Deployment
+##  Docker Deployment
 
 ### Build Image
 ```bash
@@ -210,7 +210,7 @@ volumes:
   llm-comparator-data:
 ```
 
-## 🚢 CI/CD Pipeline
+##  CI/CD Pipeline
 
 The project includes a comprehensive GitHub Actions workflow (`deploy.yml`) that:
 
@@ -228,7 +228,7 @@ The project includes a comprehensive GitHub Actions workflow (`deploy.yml`) that
 - `GHCR_PAT` - GitHub Container Registry token
 - `ENV_FILE_PATH` - Path to `.env` file on server
 
-## 🎨 Customization
+##  Customization
 
 ### Adding New Models
 Edit `src/data/models.ts` to add new LLM providers and models.
@@ -242,7 +242,7 @@ Customize theme colors in `astro.config.mjs` and Tailwind configuration.
 ### Charts
 Modify chart components in `src/components/charts/` to change visualizations.
 
-## 📊 Supported LLM Providers
+##  Supported LLM Providers
 
 - OpenAI (GPT-4, GPT-3.5, etc.)
 - Anthropic (Claude 3 family)
@@ -254,7 +254,7 @@ Modify chart components in `src/components/charts/` to change visualizations.
 
 *Add more providers by submitting a pull request*
 
-## 🔄 Data Updates
+##  Data Updates
 
 Model pricing data is fetched from a centralized backend API. To use fresh data:
 
@@ -262,7 +262,7 @@ Model pricing data is fetched from a centralized backend API. To use fresh data:
 2. Rebuild and redeploy
 3. Data refreshes on each page load
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! To contribute:
 
@@ -278,17 +278,17 @@ Please ensure:
 - Styles use Tailwind CSS classes
 - Translations are added for all languages
 
-## 📝 License
+##  License
 
 This project is open source and available under the MIT License.
 
-## 📧 Support & Contact
+##  Support & Contact
 
 For issues, feature requests, or questions:
 - Open an [Issue](https://github.com/abelrgr/llm-api-comparator/issues)
 - Contact: [abelgalloruiz.me](https://abelgalloruiz.me)
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - Built with [Astro](https://astro.build)
 - Icons by [Heroicons](https://heroicons.com)

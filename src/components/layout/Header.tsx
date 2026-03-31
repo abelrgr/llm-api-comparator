@@ -83,7 +83,14 @@ export default function Header() {
           className="flex items-center gap-1.5 font-bold text-lg shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg"
           aria-label="LLM Comparator – home"
         >
-          <span className="text-indigo-500 text-xl">⚡</span>
+          <img
+            src="/favicon.svg"
+            alt=""
+            aria-hidden="true"
+            width={28}
+            height={28}
+            className="shrink-0"
+          />
           <span className="text-slate-900 dark:text-white">LLM</span>
           <span className="text-indigo-500">Comparator</span>
         </a>
