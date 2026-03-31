@@ -2,6 +2,7 @@ import {
   useContext,
   useReducer,
   useEffect,
+  useRef,
   type ReactNode,
   type Dispatch,
 } from 'react';
@@ -115,8 +116,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
     toasts:           [],
   }));
 
+  // IDs extracted from the URL hash on mount; applied once models are loaded
+  const pendingUrlIds = useRef<string[] | null>(null);
+  const urlIdsApplied = useRef(false);
+
   // Preload cached data from localStorage so something renders while backend loads
   useEffect(() => {
+    // Extract URL hash IDs immediately so the write effect below doesn't clear them
+    const hash = window.location.hash;
+    const match = hash.match(/[#&]compare=([^&]+)/);
+    if (match) {
+      const ids = match[1].split(',').filter(Boolean).slice(0, MAX_SELECTED);
+      if (ids.length) pendingUrlIds.current = ids;
+    }
+
     const stored = loadStore();
     if (stored.models.length > 0) {
       dispatch({ type: 'SET_STORE', store: stored });
@@ -126,26 +139,32 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Parse URL hash on mount: #compare=model-a,model-b
+  // Apply pending URL hash IDs once models are available (from localStorage or backend)
   useEffect(() => {
-    const hash = window.location.hash;
-    const match = hash.match(/[#&]compare=([^&]+)/);
-    if (match) {
-      const ids = match[1].split(',').filter(Boolean).slice(0, MAX_SELECTED);
-      const validIds = ids.filter(id =>
-        state.pricingStore.models.some(m => m.id === id)
-      );
-      if (validIds.length) {
-        validIds.forEach(id => dispatch({ type: 'SELECT_MODEL', id }));
-        dispatch({
-          type: 'ADD_TOAST',
-          toast: { type: 'info', message: 'Comparison loaded from shared link' },
-        });
-      }
+    if (urlIdsApplied.current || !pendingUrlIds.current || state.pricingStore.models.length === 0) return;
+
+    const ids = pendingUrlIds.current;
+    const validIds = ids.filter(id =>
+      state.pricingStore.models.some(m => m.id === id)
+    );
+
+    // Mark as applied regardless so the write effect can resume normally
+    urlIdsApplied.current = true;
+    pendingUrlIds.current = null;
+
+    if (validIds.length) {
+      validIds.forEach(id => dispatch({ type: 'SELECT_MODEL', id }));
+      dispatch({
+        type: 'ADD_TOAST',
+        toast: { type: 'info', message: 'Comparison loaded from shared link' },
+      });
+      // Scroll to comparison section after models are selected and rendered
+      setTimeout(() => {
+        document.getElementById('compare')?.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
     }
-    // We only want this to run once on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.pricingStore.models]);
 
   // Persist store to localStorage when it changes
   useEffect(() => {
@@ -153,7 +172,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [state.pricingStore]);
 
   // Sync selectedModels → URL hash (write direction)
+  // Skip clearing the hash while there are still pending URL IDs to be applied
   useEffect(() => {
+    if (pendingUrlIds.current) return;
     const hash = state.selectedModels.length
       ? `#compare=${state.selectedModels.join(',')}`
       : window.location.pathname;
