@@ -53,6 +53,8 @@ export default function ModelGrid() {
   const bestValue = getBestValueModel(models)?.id ?? null;
   const mostCapable = getMostCapableModel(models)?.id ?? null;
   const isMaxReached = state.selectedModels.length >= 6;
+  // Show skeleton when first loading (no cached data yet + backend still syncing)
+  const isInitialLoad = state.isSyncingBackend && models.length === 0;
 
   function toggle(modelId: string) {
     if (state.selectedModels.includes(modelId)) {
@@ -74,8 +76,15 @@ export default function ModelGrid() {
         </p>
       )}
 
+      {/* Initial loading skeleton (before first backend response) */}
+      {isInitialLoad && (
+        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)}
+        </div>
+      )}
+
       {/* Empty state */}
-      {filtered.length === 0 && (
+      {filtered.length === 0 && !isInitialLoad && (
         <div className="flex flex-col items-center justify-center py-28 text-center gap-4">
           <svg
             className="w-16 h-16 text-slate-300 dark:text-slate-600"
@@ -109,9 +118,9 @@ export default function ModelGrid() {
       )}
 
       {/* Grid */}
-      {filtered.length > 0 && (
+      {filtered.length > 0 && !isInitialLoad && (
         <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {state.isRefreshing
+          {(state.isRefreshing || isInitialLoad)
             ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
             : filtered.map((model, idx) => (
                 <ModelCard

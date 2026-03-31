@@ -1,40 +1,23 @@
 import type { PricingStore } from '../types/index';
-import { getInitialStore } from '../data/models';
 
 const STORAGE_KEY    = 'llm_pricing_store';
 const STALE_AFTER_MS = 24 * 60 * 60 * 1000; // 24 hours
 
+function emptyStore(): PricingStore {
+  return { models: [], last_updated: '', version: 0 };
+}
+
 export function loadStore(): PricingStore {
-  if (typeof window === 'undefined') return getInitialStore();
+  if (typeof window === 'undefined') return emptyStore();
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      const fresh = getInitialStore();
-      saveStore(fresh);
-      return fresh;
-    }
+    if (!raw) return emptyStore();
     const parsed = JSON.parse(raw) as PricingStore;
     // Validate minimal shape
-    if (!Array.isArray(parsed.models) || !parsed.last_updated) {
-      const fresh = getInitialStore();
-      saveStore(fresh);
-      return fresh;
-    }
-    // Merge bundled model data so any new fields (e.g. latency) are always present
-    const fresh = getInitialStore();
-    const freshById = new Map(fresh.models.map(m => [m.id, m]));
-    const merged: PricingStore = {
-      ...parsed,
-      models: parsed.models.map(cached => {
-        const base = freshById.get(cached.id);
-        return base ? { ...base, ...cached, latency: base.latency } : cached;
-      }),
-    };
-    return merged;
+    if (!Array.isArray(parsed.models) || parsed.models.length === 0) return emptyStore();
+    return parsed;
   } catch {
-    const fresh = getInitialStore();
-    saveStore(fresh);
-    return fresh;
+    return emptyStore();
   }
 }
 

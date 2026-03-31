@@ -17,12 +17,13 @@ export interface ModelSnippetInfo {
 // ─── Provider routing helpers ─────────────────────────────────────────────────
 
 function isOpenAICompat(provider: Provider) {
-  return provider === "openai" || provider === "mistral" || provider === "meta";
+  return provider === "openai" || provider === "mistral" || provider === "meta" || provider === "xai";
 }
 
 function getBaseURL(provider: Provider): string {
   if (provider === "mistral") return "https://api.mistral.ai/v1";
   if (provider === "meta") return "https://api.together.xyz/v1";
+  if (provider === "xai") return "https://api.x.ai/v1";
   return "https://api.openai.com/v1";
 }
 
@@ -34,6 +35,7 @@ function getEnvVar(provider: Provider): string {
     mistral: "MISTRAL_API_KEY",
     meta: "TOGETHER_API_KEY",
     cohere: "COHERE_API_KEY",
+    xai: "XAI_API_KEY",
   };
   return map[provider] ?? "API_KEY";
 }

@@ -8,6 +8,7 @@ const SYMBOLS: Record<Provider, string> = {
   meta: "M",
   mistral: "≋",
   cohere: "Co",
+  xai: "𝕏",
   local: "⚙",
 };
 

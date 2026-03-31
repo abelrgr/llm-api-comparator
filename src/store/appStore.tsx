@@ -12,7 +12,6 @@ import { loadStore, saveStore } from '../lib/storage';
 import { getInitialStore } from '../data/models';
 import {
   fetchModelsFromBackend,
-  isBackendCacheStale,
   markBackendFetched,
   getLastBackendFetch,
 } from '../lib/modelsApi';
@@ -107,19 +106,21 @@ function reducer(state: AppState, action: Action): AppState {
 // ─── Provider ─────────────────────────────────────────────────────────────────
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, undefined, () => ({
-    pricingStore:     getInitialStore(), // SSR-safe: matches server output; localStorage hydrated after mount
+    pricingStore:     getInitialStore(), // starts empty; localStorage/backend hydrated after mount
     selectedModels:   [],
     filters:          { ...DEFAULT_FILTERS },
     isRefreshing:     false,
-    isSyncingBackend: false,
+    isSyncingBackend: true, // true from start: show loading until backend responds
     lastBackendSync:  null, // null on SSR; loaded from localStorage after mount
     toasts:           [],
   }));
 
-  // Hydrate from localStorage after mount (avoids SSR/client hydration mismatch)
+  // Preload cached data from localStorage so something renders while backend loads
   useEffect(() => {
     const stored = loadStore();
-    dispatch({ type: 'SET_STORE', store: stored });
+    if (stored.models.length > 0) {
+      dispatch({ type: 'SET_STORE', store: stored });
+    }
     const ts = getLastBackendFetch();
     if (ts !== null) dispatch({ type: 'SET_LAST_SYNC', ts });
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -159,20 +160,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     window.history.replaceState(null, '', hash);
   }, [state.selectedModels]);
 
-  // Fetch from backend on mount if cache is stale (> 3 days)
+  // Always fetch from backend on mount — localStorage is only a preload cache
   useEffect(() => {
-    if (!isBackendCacheStale()) return;
-    dispatch({ type: 'SET_SYNCING_BACKEND', value: true });
     fetchModelsFromBackend()
       .then((store) => {
         dispatch({ type: 'SET_STORE', store });
         markBackendFetched();
-        const ts = Date.now();
-        dispatch({ type: 'SET_LAST_SYNC', ts });
-        dispatch({ type: 'ADD_TOAST', toast: { type: 'success', message: 'Models updated successfully' } });
+        dispatch({ type: 'SET_LAST_SYNC', ts: Date.now() });
       })
       .catch(() => {
-        // Silently fail — use local data
+        // Backend unreachable — keep whatever loadStore() provided (localStorage cache)
+        // Only notify if there are no models at all
       })
       .finally(() => {
         dispatch({ type: 'SET_SYNCING_BACKEND', value: false });

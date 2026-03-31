@@ -5,6 +5,7 @@ export type Provider =
   | 'meta'
   | 'mistral'
   | 'cohere'
+  | 'xai'
   | 'local';
 
 export type ModelType = 'chat' | 'completion' | 'embedding' | 'image' | 'multimodal';
@@ -86,6 +87,7 @@ export const PROVIDER_COLORS: Record<Provider, string> = {
   meta:      '#0668e1',
   mistral:   '#ff7000',
   cohere:    '#39594d',
+  xai:       '#1d9bf0',
   local:     '#6b7280',
 };
 
@@ -96,11 +98,12 @@ export const PROVIDER_LABELS: Record<Provider, string> = {
   meta:      'Meta',
   mistral:   'Mistral',
   cohere:    'Cohere',
+  xai:       'xAI',
   local:     'Local',
 };
 
 export const ALL_PROVIDERS: Provider[] = [
-  'openai', 'anthropic', 'google', 'meta', 'mistral', 'cohere', 'local',
+  'openai', 'anthropic', 'google', 'meta', 'mistral', 'cohere', 'xai', 'local',
 ];
 
 export const ALL_TYPES: ModelType[] = [
