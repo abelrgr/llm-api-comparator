@@ -119,6 +119,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // IDs extracted from the URL hash on mount; applied once models are loaded
   const pendingUrlIds = useRef<string[] | null>(null);
   const urlIdsApplied = useRef(false);
+  // Set to true after URL IDs are selected; cleared once the scroll fires
+  const pendingUrlScroll = useRef(false);
 
   // Preload cached data from localStorage so something renders while backend loads
   useEffect(() => {
@@ -158,13 +160,31 @@ export function AppProvider({ children }: { children: ReactNode }) {
         type: 'ADD_TOAST',
         toast: { type: 'info', message: 'Comparison loaded from shared link' },
       });
-      // Scroll to comparison section after models are selected and rendered
-      setTimeout(() => {
-        document.getElementById('compare')?.scrollIntoView({ behavior: 'smooth' });
-      }, 300);
+      // Schedule scroll to the comparison table (#calculator).
+      // If the backend sync is already done (fast load / cache+no-new-data batch),
+      // scroll now; otherwise let the isSyncingBackend effect below fire it once
+      // the grid is at its final height.
+      if (!state.isSyncingBackend) {
+        pendingUrlScroll.current = false;
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
+        }));
+      } else {
+        pendingUrlScroll.current = true;
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.pricingStore.models]);
+
+  // Fire the deferred scroll once the backend sync finishes (grid height is stable)
+  useEffect(() => {
+    if (!pendingUrlScroll.current || state.isSyncingBackend) return;
+    pendingUrlScroll.current = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
+    }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.isSyncingBackend]);
 
   // Persist store to localStorage when it changes
   useEffect(() => {
