@@ -1,0 +1,120 @@
+---
+import "../styles/global.css";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
+import { ToastContainer } from "../components/ui/ToastContainer";
+import PageContent from "../components/PageContent";
+import AboutSection from "../components/about/AboutSection";
+import BackToTopButton from "../components/ui/BackToTopButton";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>LLM API Comparator — Compare AI Model Pricing</title>
+    <meta
+      name="description"
+      content="Compare API costs for GPT-4, Claude, Gemini, Llama and more. Interactive calculator with real pricing data."
+    />
+    <meta
+      name="keywords"
+      content="LLM pricing, GPT-4 cost, Claude API price, Gemini pricing, AI model comparison"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://llm-comparator.abelgalloruiz.me/"
+    />
+    <meta property="og:title" content="LLM API Comparator" />
+    <meta
+      property="og:description"
+      content="Make data-driven decisions about which AI model fits your budget. Compare pricing and features of GPT-4, Claude, Gemini, Llama and more."
+    />
+    <meta
+      property="og:image"
+      content="https://llm-comparator.abelgalloruiz.me/og-image.svg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:site_name" content="LLM API Comparator" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:url"
+      content="https://llm-comparator.abelgalloruiz.me/"
+    />
+    <meta name="twitter:title" content="LLM API Comparator" />
+    <meta
+      name="twitter:description"
+      content="Make data-driven decisions about which AI model fits your budget. Compare pricing and features of GPT-4, Claude, Gemini, Llama and more."
+    />
+    <meta
+      name="twitter:image"
+      content="https://llm-comparator.abelgalloruiz.me/og-image.svg"
+    />
+
+    <!-- LinkedIn -->
+    <meta property="linkedin:title" content="LLM API Comparator" />
+
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Anti-flash theme script: runs before React hydrates to prevent FOUC -->
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem("llm-theme");
+          var prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
+          var theme =
+            stored === "dark" || stored === "light"
+              ? stored
+              : prefersDark
+                ? "dark"
+                : "light";
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {
+          /* ignore – localStorage may be unavailable */
+        }
+      })();
+    </script>
+  </head>
+
+  <body class="min-h-screen transition-colors duration-300">
+    <Header client:load />
+
+    <main id="home" class="min-h-[80vh]">
+      <PageContent client:load />
+    </main>
+
+    <Footer client:load />
+    <ToastContainer client:load />
+    <AboutSection client:load />
+    <BackToTopButton client:load />
+  </body>
+</html>

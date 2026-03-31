@@ -1,0 +1,35 @@
+{
+  "name": "LLM API Comparator",
+  "short_name": "LLM Compare",
+  "description": "Compare LLM API pricing across providers. Interactive calculator with real pricing data.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "icons": [
+    { 
+      "src": "/favicon.svg", 
+      "sizes": "any", 
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    { 
+      "src": "/favicon.ico", 
+      "sizes": "48x48", 
+      "type": "image/x-icon" 
+    },
+    { 
+      "src": "/og-image.svg", 
+      "sizes": "1200x630", 
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml"
+    }
+  ]
+}

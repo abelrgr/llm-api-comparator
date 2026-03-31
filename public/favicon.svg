@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <style>
+      @media (prefers-color-scheme: dark) {
+        rect[fill="#ffffff"] { fill: #1f2937; }
+        rect[stroke="#3b82f6"], circle[fill="#3b82f6"], line[stroke="#3b82f6"] { stroke: #60a5fa; fill: #60a5fa; }
+        rect[stroke="#8b5cf6"], circle[fill="#8b5cf6"], line[stroke="#8b5cf6"] { stroke: #a78bfa; fill: #a78bfa; }
+        path[stroke="#ec4899"] { stroke: #f472b6; }
+      }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="128" height="128" fill="#ffffff" rx="24"/>
+  
+  <!-- Left model box -->
+  <rect x="16" y="32" width="40" height="64" fill="none" stroke="#3b82f6" stroke-width="2.5" rx="6"/>
+  <circle cx="26" cy="42" r="3" fill="#3b82f6"/>
+  <circle cx="36" cy="42" r="3" fill="#3b82f6"/>
+  <circle cx="46" cy="42" r="3" fill="#3b82f6"/>
+  <line x1="20" y1="52" x2="52" y2="52" stroke="#3b82f6" stroke-width="1.5" opacity="0.6"/>
+  <line x1="20" y1="60" x2="52" y2="60" stroke="#3b82f6" stroke-width="1.5" opacity="0.6"/>
+  <line x1="20" y1="68" x2="52" y2="68" stroke="#3b82f6" stroke-width="1.5" opacity="0.6"/>
+  <line x1="20" y1="76" x2="47" y2="76" stroke="#3b82f6" stroke-width="1.5" opacity="0.6"/>
+  <line x1="20" y1="84" x2="42" y2="84" stroke="#3b82f6" stroke-width="1.5" opacity="0.6"/>
+  
+  <!-- Right model box -->
+  <rect x="72" y="32" width="40" height="64" fill="none" stroke="#8b5cf6" stroke-width="2.5" rx="6"/>
+  <circle cx="82" cy="42" r="3" fill="#8b5cf6"/>
+  <circle cx="92" cy="42" r="3" fill="#8b5cf6"/>
+  <circle cx="102" cy="42" r="3" fill="#8b5cf6"/>
+  <line x1="76" y1="52" x2="108" y2="52" stroke="#8b5cf6" stroke-width="1.5" opacity="0.6"/>
+  <line x1="76" y1="60" x2="108" y2="60" stroke="#8b5cf6" stroke-width="1.5" opacity="0.6"/>
+  <line x1="76" y1="68" x2="108" y2="68" stroke="#8b5cf6" stroke-width="1.5" opacity="0.6"/>
+  <line x1="76" y1="76" x2="108" y2="76" stroke="#8b5cf6" stroke-width="1.5" opacity="0.6"/>
+  <line x1="76" y1="84" x2="104" y2="84" stroke="#8b5cf6" stroke-width="1.5" opacity="0.6"/>
+  
+  <!-- Comparison arrows in center -->
+  <path d="M 58 56 L 66 56" stroke="#ec4899" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 62 52 L 66 56 L 62 60" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <path d="M 70 72 L 62 72" stroke="#ec4899" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 66 68 L 62 72 L 66 76" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

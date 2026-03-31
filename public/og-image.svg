@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="80" fill="#ffffff" opacity="0.1"/>
+  <circle cx="1100" cy="550" r="120" fill="#ffffff" opacity="0.1"/>
+  
+  <!-- Main content box -->
+  <rect x="100" y="120" width="1000" height="390" fill="#ffffff" rx="20" opacity="0.95"/>
+  
+  <!-- Title -->
+  <text x="600" y="220" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" text-anchor="middle" fill="#1f2937">
+    LLM API Comparator
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="290" font-family="system-ui, -apple-system, sans-serif" font-size="36" text-anchor="middle" fill="#6b7280">
+    Compare AI Model Pricing & Costs
+  </text>
+  
+  <!-- Icons row -->
+  <g>
+    <!-- Compare icon -->
+    <rect x="180" y="340" width="70" height="70" fill="#dbeafe" rx="10"/>
+    <text x="215" y="390" font-family="system-ui, -apple-system, sans-serif" font-size="50" text-anchor="middle" fill="#3b82f6">⚖</text>
+    
+    <!-- Calculator icon -->
+    <rect x="530" y="340" width="70" height="70" fill="#f3e8ff" rx="10"/>
+    <text x="565" y="390" font-family="system-ui, -apple-system, sans-serif" font-size="50" text-anchor="middle" fill="#8b5cf6">🧮</text>
+    
+    <!-- Chart icon -->
+    <rect x="880" y="340" width="70" height="70" fill="#fce7f3" rx="10"/>
+    <text x="915" y="390" font-family="system-ui, -apple-system, sans-serif" font-size="50" text-anchor="middle" fill="#ec4899">📊</text>
+  </g>
+  
+  <!-- Feature text -->
+  <text x="280" y="425" font-family="system-ui, -apple-system, sans-serif" font-size="18" text-anchor="middle" fill="#4b5563">Compare Models</text>
+  <text x="630" y="425" font-family="system-ui, -apple-system, sans-serif" font-size="18" text-anchor="middle" fill="#4b5563">Calculate Costs</text>
+  <text x="980" y="425" font-family="system-ui, -apple-system, sans-serif" font-size="18" text-anchor="middle" fill="#4b5563">View Analytics</text>
+</svg>
