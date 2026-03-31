@@ -299,7 +299,7 @@ export default function ComparisonTable({
 
           <tbody>
             {/* ── Provider row ── */}
-            <Row label={t("comparison.provider")} odd>
+            <Row label={t("comparison.provider")} tooltip={t("comparison.tooltips.provider")} odd>
               {sorted.map((m) => (
                 <td
                   key={m.id}
@@ -324,7 +324,7 @@ export default function ComparisonTable({
             </Row>
 
             {/* ── Input pricing ── */}
-            <Row label={`${t("common.input")} / 1M`}>
+            <Row label={`${t("common.input")} / 1M`} tooltip={t("comparison.tooltips.input_1m")}>
               {sorted.map((m) => (
                 <td
                   key={m.id}
@@ -343,7 +343,7 @@ export default function ComparisonTable({
             </Row>
 
             {/* ── Output pricing ── */}
-            <Row label={`${t("common.output")} / 1M`} odd>
+            <Row label={`${t("common.output")} / 1M`} tooltip={t("comparison.tooltips.output_1m")} odd>
               {sorted.map((m) => (
                 <td
                   key={m.id}
@@ -363,7 +363,7 @@ export default function ComparisonTable({
             </Row>
 
             {/* ── Context window ── */}
-            <Row label={t("comparison.context")}>
+            <Row label={t("comparison.context")} tooltip={t("comparison.tooltips.context")}>
               {sorted.map((m) => (
                 <td
                   key={m.id}
@@ -386,6 +386,7 @@ export default function ComparisonTable({
               <Row
                 key={cap}
                 label={t(`models.capabilities.${cap}`)}
+                tooltip={t(`comparison.tooltips.${cap}`)}
                 odd={i % 2 === 1}
               >
                 {sorted.map((m) => (
@@ -425,7 +426,7 @@ export default function ComparisonTable({
             ))}
 
             {/* ── Monthly cost at usage ── */}
-            <Row label={t("comparison.monthly_at_usage")} highlight>
+            <Row label={t("comparison.monthly_at_usage")} tooltip={t("comparison.tooltips.monthly_at_usage")} highlight>
               {sorted.map((m) => {
                 const bd = bdMap[m.id];
                 return (
@@ -460,7 +461,7 @@ export default function ComparisonTable({
             </Row>
 
             {/* ── Subscription ── */}
-            <Row label={t("comparison.subscription")} odd>
+            <Row label={t("comparison.subscription")} tooltip={t("comparison.tooltips.subscription")} odd>
               {sorted.map((m) => (
                 <td
                   key={m.id}
@@ -489,7 +490,7 @@ export default function ComparisonTable({
             </Row>
 
             {/* ── Source link ── */}
-            <Row label={t("comparison.source")}>
+            <Row label={t("comparison.source")} tooltip={t("comparison.tooltips.source")}>
               {sorted.map((m) => (
                 <td
                   key={m.id}
@@ -521,11 +522,13 @@ export default function ComparisonTable({
 // ─── Row wrapper ──────────────────────────────────────────────────────────────
 function Row({
   label,
+  tooltip,
   odd,
   highlight,
   children,
 }: {
   label: string;
+  tooltip?: string;
   odd?: boolean;
   highlight?: boolean;
   children: React.ReactNode;
@@ -539,7 +542,31 @@ function Row({
       )}
     >
       <td className="sticky left-0 z-10 px-4 py-2.5 text-xs font-medium text-slate-500 dark:text-slate-400 whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-inherit">
-        {label}
+        <span className="flex items-center gap-1">
+          {label}
+          {tooltip && (
+            <span className="relative group/tooltip inline-flex items-center">
+              <svg
+                className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 cursor-help shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 w-52 rounded-lg bg-slate-900 dark:bg-slate-700 px-3 py-2 text-[11px] text-white leading-snug shadow-xl opacity-0 group-hover/tooltip:opacity-100 transition-opacity duration-150 z-[9999] normal-case font-normal whitespace-normal">
+                {tooltip}
+                <span className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-900 dark:border-r-slate-700" />
+              </span>
+            </span>
+          )}
+        </span>
       </td>
       {children}
     </tr>
