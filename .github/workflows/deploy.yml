@@ -166,22 +166,28 @@ jobs:
             fi
             
             echo "🚀 Starting new container..."
+            ENV_FILE='${{ secrets.ENV_FILE_PATH }}'
+            ENV_FILE_ARG=""
+            if [ -n "$ENV_FILE" ] && [ -f "$ENV_FILE" ]; then
+              ENV_FILE_ARG="--env-file $ENV_FILE"
+            fi
+
             if ! docker run -d \
               --name "$CONTAINER_NAME" \
               --restart unless-stopped \
-              --health-cmd='wget --quiet --tries=1 --spider http://localhost/index.html || exit 1' \
+              --health-cmd='wget --quiet --tries=1 --spider http://localhost/ || exit 1' \
               --health-interval=30s \
               --health-timeout=10s \
               --health-retries=3 \
               --health-start-period=40s \
               -v ${CONTAINER_NAME}-data:/var/www/html/tmp \
               -p '${{ secrets.SERVER_PORT }}':80 \
-              --env-file '${{ secrets.ENV_FILE_PATH }}' \
-              -e "DEPLOY_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
-              -e "DEPLOY_SHA='${{ github.sha }}'" \
+              $ENV_FILE_ARG \
               "$IMAGE_TAG"; then
               echo "❌ Failed to start new container"
-              
+              echo "📋 Container logs:"
+              docker logs "$CONTAINER_NAME" 2>&1 || true
+
               # Rollback: restore backup
               if [ ! -z "$BACKUP_CONTAINER" ]; then
                 docker rename "$BACKUP_CONTAINER" "$CONTAINER_NAME"
