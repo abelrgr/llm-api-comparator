@@ -6,7 +6,20 @@ import compress from '@playform/compress';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), compress()],
+  integrations: [
+    react(),
+    compress({
+      HTML: {
+        'html-minifier-terser': {
+          // collapseWhitespace strips React SSR text nodes ({" "}, etc.)
+          // which causes React hydration error #418 on the client.
+          collapseWhitespace: false,
+          // trimCustomFragments has the same effect on inline text fragments.
+          trimCustomFragments: false,
+        },
+      },
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
